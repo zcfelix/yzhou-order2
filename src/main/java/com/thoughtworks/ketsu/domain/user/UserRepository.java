@@ -7,4 +7,5 @@ public interface UserRepository {
     User createUser(Map<String, Object> info);
 
     Optional<User> findById(int id);
+
 }

@@ -36,5 +36,4 @@ public class UsersApi {
                                  @Context Routes routes) {
         return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user not found"));
     }
-
 }

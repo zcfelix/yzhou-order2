@@ -1,0 +1,56 @@
+package com.thoughtworks.ketsu.domain.order;
+
+import com.thoughtworks.ketsu.infrastructure.records.Record;
+import com.thoughtworks.ketsu.web.jersey.Routes;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Order implements Record {
+    private int id;
+    private int userId;
+    private String name;
+    private String address;
+    private String phone;
+    private double totalPrice;
+    private Date time;
+
+    public Order() {
+    }
+
+    public Order(int id, int userId, String name, String address, String phone, double totalPrice, Date time) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.totalPrice = totalPrice;
+        this.time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    @Override
+    public Map<String, Object> toJson(Routes routes) {
+        return new HashMap<String, Object>() {{
+            put("uri", "/users/28/orders/1");
+            put("name", name);
+            put("address", address);
+            put("phone", phone);
+            put("total_price", 0.0d);
+            put("created_at", time);
+        }};
+    }
+
+    @Override
+    public Map<String, Object> toRefJson(Routes routes) {
+        return toJson(routes);
+    }
+}

@@ -3,24 +3,12 @@
 <mapper namespace="com.thoughtworks.ketsu.infrastructure.mybatis.mappers.UserMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="info.id">
         INSERT INTO users (name)
-        VALUES (#{user.name})
+        VALUES (#{info.name})
     </insert>
 
-    <!--<insert id="save">-->
-        <!--INSERT INTO users (id, name, email, role, password)-->
-        <!--VALUES (#{user.userId.id}, #{user.name}, #{user.email}, #{user.role},  #{user.password})-->
-    <!--</insert>-->
+    <select id="findById" resultMap="records.user">
+        SELECT * FROM users
+        WHERE users.id = #{id}
+    </select>
 
-    <!--<select id="ofId" resultMap="records.user">-->
-        <!--SELECT-->
-          <!--<include refid="columns.user"/>-->
-        <!--FROM users U-->
-        <!--WHERE U.id = #{id}-->
-    <!--</select>-->
-    <!--<select id="findByUserName" resultMap="records.user">-->
-        <!--SELECT-->
-        <!--<include refid="columns.user"/>-->
-        <!--FROM users U-->
-        <!--WHERE U.name = #{userName}-->
-    <!--</select>-->
 </mapper>
