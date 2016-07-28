@@ -28,4 +28,13 @@ public class UsersApi {
         return Response.created(routes.userUri(userRepository.createUser(userInfo))).status(201).build();
     }
 
+    @GET
+    @Path("{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User findUserById(@PathParam("userId") int userId,
+                                 @Context UserRepository userRepository,
+                                 @Context Routes routes) {
+        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user not found"));
+    }
+
 }
