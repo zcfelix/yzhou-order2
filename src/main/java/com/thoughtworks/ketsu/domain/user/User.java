@@ -30,9 +30,10 @@ public class User implements Record {
         return id;
     }
 
-    public void createOrder(Map<String, Object> orderInfo) {
+    public Order createOrder(Map<String, Object> orderInfo) {
         orderInfo.put("userId", id);
         orderMapper.save(orderInfo);
+        return orderMapper.findById(Integer.valueOf(orderInfo.get("id").toString()));
     }
 
     public Optional<Order> findOrderById(int orderId) {

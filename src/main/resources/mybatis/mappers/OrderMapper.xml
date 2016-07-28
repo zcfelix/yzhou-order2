@@ -11,19 +11,4 @@
         WHERE orders.id = #{id}
     </select>
 
-    <!--<insert id="save" useGeneratedKeys="true" keyProperty="info.id">-->
-        <!--INSERT INTO products (name, description, price)-->
-        <!--VALUES (#{info.name}, #{info.description}, #{info.price})-->
-    <!--</insert>-->
-
-    <!--<select id="findById" resultMap="records.product">-->
-        <!--SELECT * FROM products-->
-        <!--WHERE products.id = #{id}-->
-    <!--</select>-->
-
-    <!--<select id="findAllProducts" resultMap="records.product">-->
-        <!--SELECT *-->
-        <!--FROM products-->
-    <!--</select>-->
-
 </mapper>

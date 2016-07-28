@@ -40,7 +40,7 @@ public class Order implements Record {
     @Override
     public Map<String, Object> toJson(Routes routes) {
         return new HashMap<String, Object>() {{
-            put("uri", "/users/28/orders/1");
+            put("uri", routes.orderUri(Order.this));
             put("name", name);
             put("address", address);
             put("phone", phone);
