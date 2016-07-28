@@ -11,4 +11,9 @@
         WHERE products.id = #{id}
     </select>
 
+    <select id="findAllProducts" resultMap="records.product">
+        SELECT *
+        FROM products
+    </select>
+
 </mapper>
