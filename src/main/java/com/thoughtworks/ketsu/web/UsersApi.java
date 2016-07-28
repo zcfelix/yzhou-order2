@@ -1,39 +1,31 @@
 package com.thoughtworks.ketsu.web;
 
 import com.thoughtworks.ketsu.domain.user.*;
+import com.thoughtworks.ketsu.web.exception.InvalidParameterException;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Path("users")
 public class UsersApi {
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createUser(CreateUserRequestBean info,
+    public Response createUser(Map<String, Object> userInfo,
                                @Context UserRepository userRepository,
-                               @Context Routes routes,
-                               @Context EncryptionService encryptionService) {
-        if (userRepository.ofId(new UserId(info.getId())).isPresent()) {
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        User user = new User(
-                new UserId(info.getId()),
-                info.getName(),
-                info.getEmail(),
-                info.getRole() == null ? UserRole.DEV : info.getRole(),
-                encryptionService.encrypt(info.getPassword()));
-        userRepository.save(user);
-        return Response.created(routes.userUrl(user)).build();
+                               @Context Routes routes) {
+        List<String> invalidParamsList = new ArrayList<>();
+        if (userInfo.getOrDefault("name", "").toString().trim().isEmpty())
+            invalidParamsList.add("name");
+        if (invalidParamsList.size() > 0)
+            throw new InvalidParameterException(invalidParamsList);
+        return Response.created(routes.userUri(userRepository.createUser(userInfo))).status(201).build();
     }
 
-    @Path("{userId}")
-    public UserApi getUser(@PathParam("userId") String userId,
-                           @Context UserRepository userRepository) {
-        return userRepository.ofId(new UserId(userId))
-                .map(UserApi::new)
-                .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
-    }
 }

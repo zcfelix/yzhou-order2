@@ -8,10 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
-
 import java.util.List;
+import java.util.Optional;
 
-import static com.sun.tools.doclint.Entity.ne;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -30,8 +29,8 @@ public class MyBatisProductRepositoryTest {
     @Test
     public void should_get_product_by_id() {
         Product product = productRepository.createProduct(TestHelper.productMap("apple"));
-        Product product_get = productRepository.findById(product.getId());
-        assertThat(product_get.getId(), is(product.getId()));
+        Optional<Product> product_get = productRepository.findById(product.getId());
+        assertThat(product_get.get().getId(), is(product.getId()));
     }
 
     @Test

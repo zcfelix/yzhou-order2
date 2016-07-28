@@ -1,9 +1,7 @@
 package com.thoughtworks.ketsu.infrastructure.repositories;
 
-import com.thoughtworks.ketsu.domain.user.UserRepository;
 import com.thoughtworks.ketsu.domain.user.User;
-import com.thoughtworks.ketsu.domain.user.UserId;
-import com.thoughtworks.ketsu.domain.user.UserRole;
+import com.thoughtworks.ketsu.domain.user.UserRepository;
 import com.thoughtworks.ketsu.support.DatabaseTestRunner;
 import com.thoughtworks.ketsu.support.TestHelper;
 import org.junit.Test;
@@ -21,12 +19,9 @@ public class MyBatisUserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void should_create_and_get_user() throws Exception {
-        User user = TestHelper.userForTest("123", "name", UserRole.DEV);
-        userRepository.save(user);
-        final Optional<User> fetch = userRepository.ofId(new UserId("123"));
-        assertThat(fetch.isPresent(), is(true));
-        final User fetchedUser = fetch.get();
-        assertThat(fetchedUser, is(user));
+    public void should_save_user_and_find_by_id() {
+        User user = userRepository.createUser(TestHelper.userMap("felix"));
+        Optional<User> user_get = userRepository.findById(user.getId());
+        assertThat(user_get.get().getId(), is(user.getId()));
     }
 }

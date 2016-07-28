@@ -36,7 +36,6 @@ public class ProductsApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Product> findAllProducts(@Context ProductRepository productRepository) {
-        //return Response.status(200).build();
         return productRepository.findAllProducts();
     }
 
@@ -45,7 +44,6 @@ public class ProductsApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Product findProductById(@PathParam("id") int id,
                                    @Context ProductRepository productRepository) {
-        //return Response.status(200).build();
-        return productRepository.findById(id);
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("product not found"));
     }
 }

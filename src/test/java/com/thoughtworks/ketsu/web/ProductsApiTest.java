@@ -58,4 +58,11 @@ public class ProductsApiTest extends ApiSupport{
         assertThat(RET_INFO.get("name"), is("duck"));
         assertThat(RET_INFO.get("uri"), is("/products/" + product.getId()));
     }
+
+    @Test
+    public void should_return_404_when_product_not_found() {
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        final Response GET = get("products/" + (product.getId() + 1));
+        assertThat(GET.getStatus(), is(404));
+    }
 }

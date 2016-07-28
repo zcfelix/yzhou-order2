@@ -14,11 +14,13 @@ public class Routes {
         baseUri = uriInfo.getBaseUri().toASCIIString();
     }
 
-    public URI userUrl(User user) {
-        return URI.create(String.format("%susers/%s", baseUri, user.getUserId().id()));
-    }
+//    public URI userUrl(User user) {
+//        return URI.create(String.format("%susers/%s", baseUri, user.getUserId().id()));
+//    }
 
     public URI productUri(Product product) {
         return URI.create("/products/" + product.getId());
     }
+
+    public URI userUri(User user) { return URI.create("/users/" + user.getId()); }
 }
