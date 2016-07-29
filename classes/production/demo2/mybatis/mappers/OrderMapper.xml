@@ -3,27 +3,54 @@
 <mapper namespace="com.thoughtworks.ketsu.infrastructure.mybatis.mappers.OrderMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="info.id">
         INSERT INTO orders (user_id, name, address, phone, total_price)
-        VALUES (#{info.userId}, #{info.name}, #{info.address}, #{info.phone}, #{info.totalPrice})
+        VALUES (#{info.userId}, #{info.name}, #{info.address}, #{info.phone}, #{info.totalPrice});
+
+        SET @LAST_INSERT_ORDER_ID = LAST_INSERT_ID();
+
+        INSERT INTO orderitems (order_id, product_id, quantity, amount)
+        VALUES
+        <foreach collection="info.orderItems" item="item" separator=",">
+            (@LAST_INSERT_ORDER_ID, #{item.productId}, #{item.quantity}, #{item.amount})
+        </foreach>
     </insert>
 
     <select id="findById" resultMap="records.order" >
-        SELECT * FROM orders
-        WHERE orders.id = #{id}
+        SELECT
+        O.id AS id,
+        O.name AS name,
+        O.address AS address,
+        O.phone AS phone,
+        O.total_price AS total_price,
+        O.time AS time,
+        O.user_id AS user_id,
+        O.id AS order_id,
+        I.product_id AS product_id,
+        I.quantity AS quantity,
+        I.amount AS amount
+
+        FROM orderitems I
+        INNER JOIN orders O
+        ON I.order_id = O.id
+        WHERE O.id = #{id}
     </select>
 
-    <!--<insert id="save" useGeneratedKeys="true" keyProperty="info.id">-->
-        <!--INSERT INTO products (name, description, price)-->
-        <!--VALUES (#{info.name}, #{info.description}, #{info.price})-->
-    <!--</insert>-->
+    <select id="findAllOrders" resultMap="records.order" >
+        SELECT
+        O.id AS id,
+        O.name AS name,
+        O.address AS address,
+        O.phone AS phone,
+        O.total_price AS total_price,
+        O.time AS time,
+        O.user_id AS user_id,
+        O.id AS order_id,
+        I.product_id AS product_id,
+        I.quantity AS quantity,
+        I.amount AS amount
 
-    <!--<select id="findById" resultMap="records.product">-->
-        <!--SELECT * FROM products-->
-        <!--WHERE products.id = #{id}-->
-    <!--</select>-->
-
-    <!--<select id="findAllProducts" resultMap="records.product">-->
-        <!--SELECT *-->
-        <!--FROM products-->
-    <!--</select>-->
+        FROM orderitems I
+        INNER JOIN orders O
+        ON I.order_id = O.id
+    </select>
 
 </mapper>

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,6 +47,14 @@ public class OrderManipulationTest {
         int orderId = Integer.valueOf(orderInfo.get("id").toString());
         Optional<Order> orderOptional = user.findOrderById(orderId);
         assertThat(orderOptional.get().getId(), is(Integer.valueOf(orderInfo.get("id").toString())));
+    }
+
+    @Test
+    public void should_return_all_orders() {
+        Map<String, Object> orderInfo = TestHelper.orderMap("felix", product1.getId(), product2.getId());
+        user.createOrder(orderInfo);
+        List<Order> ordersList = user.findAllOrders();
+        assertThat(ordersList.size(), is(1));
     }
 
 }

@@ -14,11 +14,6 @@
         </foreach>
     </insert>
 
-    <!--<select id="findById" resultMap="records.order" >-->
-        <!--SELECT * FROM orders-->
-        <!--WHERE orders.id = #{id}-->
-    <!--</select>-->
-
     <select id="findById" resultMap="records.order" >
         SELECT
         O.id AS id,
@@ -27,6 +22,7 @@
         O.phone AS phone,
         O.total_price AS total_price,
         O.time AS time,
+        O.user_id AS user_id,
         O.id AS order_id,
         I.product_id AS product_id,
         I.quantity AS quantity,
@@ -36,6 +32,25 @@
         INNER JOIN orders O
         ON I.order_id = O.id
         WHERE O.id = #{id}
+    </select>
+
+    <select id="findAllOrders" resultMap="records.order" >
+        SELECT
+        O.id AS id,
+        O.name AS name,
+        O.address AS address,
+        O.phone AS phone,
+        O.total_price AS total_price,
+        O.time AS time,
+        O.user_id AS user_id,
+        O.id AS order_id,
+        I.product_id AS product_id,
+        I.quantity AS quantity,
+        I.amount AS amount
+
+        FROM orderitems I
+        INNER JOIN orders O
+        ON I.order_id = O.id
     </select>
 
 </mapper>

@@ -6,10 +6,7 @@ import com.thoughtworks.ketsu.domain.user.UserRepository;
 import com.thoughtworks.ketsu.web.exception.InvalidParameterException;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,5 +37,22 @@ public class OrdersApi {
         User user = userRepository.findById(userId).get();
         Order order = user.createOrder(info);
         return Response.created(routes.orderUri(order)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Order> findAllOrders(@PathParam("userId") int userId) {
+        User user = userRepository.findById(userId).get();
+        return user.findAllOrders();
+    }
+
+    @Path("{orderId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Order findOrderById(@PathParam("userId") int userId,
+                               @PathParam("orderId") int orderId) {
+        User user = userRepository.findById(userId).get();
+        return user.findOrderById(orderId).orElseThrow(() -> new NotFoundException("order not found"));
+        //return Response.status(200).build();
     }
 }

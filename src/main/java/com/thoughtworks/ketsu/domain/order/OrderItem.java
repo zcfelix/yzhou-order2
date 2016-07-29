@@ -41,6 +41,8 @@ public class OrderItem implements Record {
         return amount;
     }
 
+
+    // OrderItems的下列函数实际上并未被调用
     @Override
     public Map<String, Object> toJson(Routes routes) {
         return new HashMap<String, Object>() {{

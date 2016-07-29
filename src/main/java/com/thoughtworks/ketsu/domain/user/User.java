@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static java.awt.SystemColor.info;
-
 public class User implements Record {
 
     @Inject
@@ -52,6 +50,10 @@ public class User implements Record {
         orderInfo.put("totalPrice", total_price);
         orderMapper.save(orderInfo);
         return orderMapper.findById(Integer.valueOf(orderInfo.get("id").toString()));
+    }
+
+    public List<Order> findAllOrders() {
+        return orderMapper.findAllOrders();
     }
 
     public Optional<Order> findOrderById(int orderId) {

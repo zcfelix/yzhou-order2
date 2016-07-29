@@ -3,10 +3,7 @@ package com.thoughtworks.ketsu.domain.order;
 import com.thoughtworks.ketsu.infrastructure.records.Record;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Order implements Record {
     private int id;
@@ -39,17 +36,21 @@ public class Order implements Record {
         return userId;
     }
 
+    // 直接插入itemsList, 该变量中会包含oderId, 而结果并不需要, 需要将其去掉。
     @Override
     public Map<String, Object> toJson(Routes routes) {
+        List<Map<String, Object>> itemInfoRetList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < itemsList.size(); ++i) {
+            itemInfoRetList.add(i, itemsList.get(i).toJson(routes));
+        }
         return new HashMap<String, Object>() {{
-            put("id", id);
             put("uri", routes.orderUri(Order.this));
             put("name", name);
             put("address", address);
             put("phone", phone);
             put("total_price", totalPrice);
             put("created_at", time);
-            put("order_items", itemsList);
+            put("order_items", itemInfoRetList);
         }};
     }
 
