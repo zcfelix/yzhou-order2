@@ -13,15 +13,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
-
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import static javafx.scene.input.KeyCode.R;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 

@@ -13,7 +13,7 @@ public class InvalidParamMessage implements Record {
 
     public InvalidParamMessage(String field) {
         this.field = field;
-        this.message = field + " can not be empty";
+        this.message = "can not be empty";
     }
 
     @Override

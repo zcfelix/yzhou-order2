@@ -1,6 +1,7 @@
 package com.thoughtworks.ketsu.domain.user;
 
 import com.thoughtworks.ketsu.domain.order.Order;
+import com.thoughtworks.ketsu.domain.payment.Payment;
 import com.thoughtworks.ketsu.infrastructure.mybatis.mappers.OrderMapper;
 import com.thoughtworks.ketsu.infrastructure.mybatis.mappers.ProductMapper;
 import com.thoughtworks.ketsu.infrastructure.records.Record;

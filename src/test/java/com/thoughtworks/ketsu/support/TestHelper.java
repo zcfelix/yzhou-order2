@@ -45,4 +45,11 @@ public class TestHelper {
             put("orderItems", orderItems);
         }};
     }
+
+    public static Map<String, Object> paymentMap() {
+        return new HashMap<String, Object>() {{
+            put("payType", "CASH");
+            put("amount", 2000);
+        }};
+    }
 }

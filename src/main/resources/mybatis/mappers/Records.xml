@@ -37,4 +37,11 @@
             <result property="amount" column="amount" />
         </collection>
     </resultMap>
+
+    <resultMap id="payment" type="com.thoughtworks.ketsu.domain.payment.Payment">
+        <result property="orderId" column="order_id" />
+        <result property="payType" column="pay_type" />
+        <result property="amount" column="amount" />
+        <result property="time" column="time" />
+    </resultMap>
 </mapper>
