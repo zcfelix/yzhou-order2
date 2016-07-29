@@ -5,6 +5,7 @@ import com.thoughtworks.ketsu.web.jersey.Routes;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Order implements Record {
@@ -15,6 +16,7 @@ public class Order implements Record {
     private String phone;
     private double totalPrice;
     private Date time;
+    private List<OrderItem> itemsList;
 
     public Order() {
     }
@@ -40,17 +42,26 @@ public class Order implements Record {
     @Override
     public Map<String, Object> toJson(Routes routes) {
         return new HashMap<String, Object>() {{
+            put("id", id);
             put("uri", routes.orderUri(Order.this));
             put("name", name);
             put("address", address);
             put("phone", phone);
-            put("total_price", 0.0d);
+            put("total_price", totalPrice);
             put("created_at", time);
+            put("order_items", itemsList);
         }};
     }
 
     @Override
     public Map<String, Object> toRefJson(Routes routes) {
-        return toJson(routes);
+        return new HashMap<String, Object>() {{
+            put("uri", routes.orderUri(Order.this));
+            put("name", name);
+            put("address", address);
+            put("phone", phone);
+            put("total_price", totalPrice);
+            put("created_at", time);
+        }};
     }
 }

@@ -39,7 +39,6 @@ public class OrderManipulationTest {
         ordersBaseUri = "users/" + user.getId() + "/orders/";
     }
 
-
     @Test
     public void should_create_an_order_without_items_find_order_by_id() {
         Map<String, Object> orderInfo = TestHelper.orderMap("felix", product1.getId(), product2.getId());
@@ -48,4 +47,5 @@ public class OrderManipulationTest {
         Optional<Order> orderOptional = user.findOrderById(orderId);
         assertThat(orderOptional.get().getId(), is(Integer.valueOf(orderInfo.get("id").toString())));
     }
+
 }

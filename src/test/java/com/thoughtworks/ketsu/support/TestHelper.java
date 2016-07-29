@@ -30,19 +30,19 @@ public class TestHelper {
     public static Map<String, Object> orderMap(String name, int productId1, int productId2) {
         List<Map<String, Object>> orderItems = new ArrayList<Map<String, Object>>();
         orderItems.add(0, new HashMap<String, Object>() {{
-            put("product_id", productId1);
-            put("quantity", 2);
+            put("productId", productId1);
+            put("quantity", 201);
         }});
-//        orderItems.add(1, new HashMap<String, Object>() {{
-//            put("product_id", productId2);
-//            put("product_id", productId2;)
-//        }});
+        orderItems.add(1, new HashMap<String, Object>() {{
+            put("productId", productId2);
+            put("quantity", 202);
+        }});
 
         return new HashMap<String, Object>() {{
             put("name", name);
             put("address", "beijing");
             put("phone", "15184452287");
-            put("order_items", orderItems);
+            put("orderItems", orderItems);
         }};
     }
 }

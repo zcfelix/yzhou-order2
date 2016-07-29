@@ -27,6 +27,10 @@ public class Product implements Record {
         return id;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,6 +47,12 @@ public class Product implements Record {
 
     @Override
     public Map<String, Object> toRefJson(Routes routes) {
-        return toJson(routes);
+        return new HashMap<String, Object>() {{
+            put("id", id);
+            put("uri", routes.productUri(Product.this));
+            put("name", name);
+            put("description", description);
+            put("price", price);
+        }};
     }
 }

@@ -29,5 +29,12 @@
         <result property="phone" column="phone" />
         <result property="totalPrice" column="total_price" />
         <result property="time" column="time" />
+        <collection property="itemsList" ofType="com.thoughtworks.ketsu.domain.order.OrderItem">
+            <id property="id" column="id" />
+            <result property="orderId" column="order_id" />
+            <result property="productId" column="product_id" />
+            <result property="quantity" column="quantity" />
+            <result property="amount" column="amount" />
+        </collection>
     </resultMap>
 </mapper>

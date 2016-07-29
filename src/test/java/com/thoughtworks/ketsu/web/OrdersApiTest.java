@@ -42,12 +42,17 @@ public class OrdersApiTest extends ApiSupport{
         ordersBaseUri = "users/" + user.getId() + "/orders/";
     }
 
-
     @Test
     public void should_return_201_when_create_an_order() {
         final Response POST = post(ordersBaseUri, TestHelper.orderMap("felix", product1.getId(), product2.getId()));
         assertThat(POST.getStatus(), is(201));
         assertThat(Pattern.matches(".*?/users/[0-9-]*/orders/[0-9-]*", POST.getLocation().toASCIIString()), is(true));
+    }
+
+    @Test
+    public void should_return_400_when_create_an_order_with_missing_params() {
+        final Response POST = post(ordersBaseUri, TestHelper.orderMap("", product1.getId(), product2.getId()));
+        assertThat(POST.getStatus(), is(400));
     }
 
 }
